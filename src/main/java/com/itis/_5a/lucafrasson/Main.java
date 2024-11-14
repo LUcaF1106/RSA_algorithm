@@ -38,7 +38,7 @@ public class Main {
                     logger.warn("Bisogna inserere un intero");
                 }
 
-            } while (ch < 1 || ch > 3);
+            } while (ch < 1 || ch > 4);
             switch (ch) {
                 case 1:
                     key1 = key_gen();
