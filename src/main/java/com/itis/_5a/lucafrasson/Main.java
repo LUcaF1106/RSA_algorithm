@@ -51,7 +51,9 @@ public class Main {
                     String m = inp.nextLine();
                     logger.info("Abbiamo cifrato il messaggio: "+m);
                     c = encrypt(m, key1.getPrivateKey());
-                    c = encrypt(c, key2.getPublicKey());}
+                    c = encrypt(c, key2.getPublicKey());
+                    logger.info("Messaggio cifrato: "+c);
+                }
                     else{
                         logger.warn("Prima devi creare delle chaivi");
                     }
@@ -61,7 +63,7 @@ public class Main {
                 if(key1!=null && key2!=null){
                     if(c!=""){
                         String md=decrypt(decrypt(c, key2.getPrivateKey()), key1.getPublicKey());
-                        logger.info("Il messaggio decrifirato è :"+md);
+                        logger.info("Messaggio decrifirato:"+md);
                     }
                     else{
                         logger.warn("Devi prima cifrare un messaggio");
@@ -125,7 +127,7 @@ public class Main {
         for (char ch : m.toCharArray()) {
             BigInteger M = BigInteger.valueOf((int) ch);
             BigInteger C = M.modPow(key.getPrivateExponent(), key.getModulo());
-            encrypted.append(C.toString()).append(";");
+            encrypted.append(C.toString(16)).append(";");
         }
 
         return encrypted.toString();
@@ -137,7 +139,7 @@ public class Main {
         for (char ch : m.toCharArray()) {
             BigInteger M = BigInteger.valueOf((int) ch);
             BigInteger C = M.modPow(key.getPublicExponent(), key.getModulo());
-            encrypted.append(C.toString()).append(";");
+            encrypted.append(C.toString(16)).append(";");
         }
 
         return encrypted.toString();
@@ -149,7 +151,7 @@ public class Main {
         StringBuilder mes = new StringBuilder();
         try {
             while (tokenizer.hasMoreTokens()) {
-                BigInteger E = new BigInteger(tokenizer.nextToken());
+                BigInteger E = new BigInteger(tokenizer.nextToken(), 16);
                 int C = E.modPow(key.getPrivateExponent(), key.getModulo()).intValue();
                 mes.append((char) C);
             }
@@ -167,7 +169,7 @@ public class Main {
         StringBuilder mes = new StringBuilder();
         try {
             while (tokenizer.hasMoreTokens()) {
-                BigInteger E = new BigInteger(tokenizer.nextToken());
+                BigInteger E = new BigInteger(tokenizer.nextToken(),16);
                 int C = E.modPow(key.getPublicExponent(), key.getModulo()).intValue();
                 mes.append((char) C);
             }
